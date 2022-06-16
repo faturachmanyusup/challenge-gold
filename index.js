@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const postRoutes = require('./routes/posts.routes');
-const userRoutes = require('./routes/users.routes');
+const orderRoutes = require('./routes/orders.routes');
+const userRoutes = require('./routes/customers.routes');
 const itemRoutes = require('./routes/items.routes');
 
 const PORT = 3000;
@@ -11,9 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.send('Server running'));
 
-app.use('/posts', postRoutes);
+app.use('/orders', orderRoutes);
 
-app.use('/users', userRoutes);
+app.use('/customers', userRoutes);
 app.use('/items', itemRoutes);
 // app.use('/orders', orderRoutes);
 

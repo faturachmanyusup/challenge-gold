@@ -1,0 +1,17 @@
+1. Buat ERD yang minimal memiliki 3 entity (table) di bawah ini:
+    - User
+    - Items
+    - Orders
+
+2. Ubah nama table:
+    - Customer => users
+    - Product => items
+
+3. Tambahkan attributes ke setiap table yang sudah dibuat
+berdasarkan ERD yg teman-teman buat.
+
+==============================================================
+
+1. Integrasikan database yang sudah dibuat dengan server yg sebelumnya sudah dibuat.
+2. Buat model untuk setiap table/entity.
+3. Menjalankan functional CRUD.
