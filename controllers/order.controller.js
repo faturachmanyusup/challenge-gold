@@ -1,5 +1,5 @@
-const OrderModel = require('../models/order.model');
-const ItemModel = require('../models/item.model');
+const { orders: OrderModel } = require('../models');
+const { items: ItemModel } = require('../models');
 
 exports.getAllOrder = (req, res) => {
   return res.status(200).json({
@@ -16,14 +16,18 @@ exports.getOrder = (req, res) => {
 exports.createOrder = async (req, res) => {
   try {
     // 1. Dapatkan data item yg diminta (termasuk validasi item ada atau tidak)
-    const orderItem = await ItemModel.getByID(req.body.item_id);
-  
+    const orderItem = await ItemModel.findOne({
+      where: {
+        id: req.body.item_id
+      }
+    });
+
     const newOrder = {
       cust_id: req.body.cust_id,
       item_id: req.body.item_id,
       qty: req.body.qty,
-      // amount = harga dari item yg diminta + request qty
-      amount: orderItem.price * req.body.qty,
+      // nilai amount = price dari item yg diminta + request qty
+      amount: orderItem.dataValues.price * req.body.qty,
     }
   
     await OrderModel.create(newOrder);

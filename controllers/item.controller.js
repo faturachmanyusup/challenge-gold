@@ -1,4 +1,5 @@
-const ItemModel = require('../models/item.model');
+const { items } = require('../models');
+const { Op } = require("sequelize");
 
 class ItemController {
   static async addItem(req, res) {
@@ -14,12 +15,12 @@ class ItemController {
       }
 
       const newItem = {
+        id: 18,
         name: req.body.name,
         price: req.body.price,
-        created_at: new Date().toISOString(),
       }
   
-      await ItemModel.add(newItem);
+      await items.create(newItem);
   
       return res.status(201).json({
         message: 'Berhasil menmbahkan item dengan nama ' + newItem.name
@@ -43,11 +44,21 @@ class ItemController {
   }
 
   static async getAllItem(req, res) {
-    const items = await ItemModel.getAll();
+    const rows = await items.findAll({
+      limit: 10,
+      order: [
+        ['price']
+      ],
+      where: {
+        price: {
+          [Op.between]: [10_000, 20_000]
+        }
+      }
+    });
 
     return res.status(200).json({
       message: 'Berhasil mendapatkan items',
-      data: items
+      data: rows
     })
   }
 
@@ -65,7 +76,9 @@ class ItemController {
     try {
       if (!req.body.id) throw { status: 400, message: 'parameter id tidak boleh kosong' };
 
-      await ItemModel.delete(req.body.id);
+      await items.destroy({
+        where: { id: req.body.id }
+      });
 
       return res.status(200).json({
         message: 'Berhasil menghapus item dengan id ' + req.body.id

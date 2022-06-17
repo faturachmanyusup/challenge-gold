@@ -1,0 +1,23 @@
+1. Yg harus diinstall:
+  - sequelize
+  - pg pg-hstore
+  - sequelize-cli --save-dev
+
+2. Jalankan perintah "npx sequelize-cli init" pada terminal
+  Jika berhasil sequelize akan mengenerate 3 folders
+    - config
+    - seeders
+    - migrations
+    - models
+
+3. Update config.json di dalam folder config sesuai configurasi database
+
+4. Jika sudah terlanjur membuat model secara manual
+  - hapus model yg ada
+
+5. Buat model dengan perintah
+"npx sequelize-cli model:generate --name [nama_tabel] --attributes [nama_attr]:[tipe_data],[nama_attr]:[tipe_data]"
+
+6. Sesuaikan model yg dibuat dengan sequelize dengan kondisi database (attributes).
+
+7. Ubah model existing di controller menggunakan model baru yang dibuat dengan sequelize.
